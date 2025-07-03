@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBMsum - IBM Themed Lorem Ipsum Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 1rem;
+      font-size: 2rem;
+    }
+    main {
+      width: 100%;
+      max-width: 600px;
+      padding: 1rem;
+    }
+    label, input, select, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    input, select, button {
+      padding: 0.5rem;
+      background: #111;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    button {
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 2rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>IBMsum</header>
+  <main>
+    <label for="type">Generate by:</label>
+    <select id="type">
+      <option value="words">Words</option>
+      <option value="paragraphs">Paragraphs</option>
+    </select>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" min="1" max="100" value="5" />
+
+    <button onclick="generateLorem()">Generate</button>
+
+    <div id="output"></div>
+  </main>
+
+  <script>
+    const loremWords = "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua".split(" ");
+
+    function generateLorem() {
+      const type = document.getElementById("type").value;
+      const amount = parseInt(document.getElementById("amount").value);
+      let output = "";
+
+      if (type === "words") {
+        for (let i = 0; i < amount; i++) {
+          output += loremWords[i % loremWords.length] + " ";
+        }
+      } else {
+        for (let i = 0; i < amount; i++) {
+          let para = "";
+          for (let j = 0; j < 50; j++) {
+            para += loremWords[(i * 50 + j) % loremWords.length] + " ";
+          }
+          output += `<p>${para.trim()}.</p>`;
+        }
+      }
+
+      document.getElementById("output").innerHTML = output.trim();
+    }
+  </script>
+</body>
+</html>
