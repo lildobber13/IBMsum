@@ -80,6 +80,11 @@
       font-size: 1rem;
       line-height: 1.6;
     }
+
+    #copy-btn {
+      display: none;
+      margin-top: -0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -99,6 +104,7 @@
     </div>
 
     <button onclick="generateIbmIpsum()">Generate</button>
+    <button id="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
 
     <div id="output"></div>
   </main>
@@ -137,6 +143,17 @@
       }
 
       document.getElementById("output").innerHTML = output;
+      document.getElementById("copy-btn").style.display = "inline-block";
+    }
+
+    function copyToClipboard() {
+      const tempElement = document.createElement("textarea");
+      tempElement.value = document.getElementById("output").innerText;
+      document.body.appendChild(tempElement);
+      tempElement.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempElement);
+      alert("IBMsum copied to clipboard!");
     }
   </script>
 </body>
