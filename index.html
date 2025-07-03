@@ -3,90 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IBMsum - IBM Themed Lorem Ipsum Generator</title>
+  <title>IBMsum - IBM Themed Ipsum Generator</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --ibm-blue: #0f62fe;
+      --ibm-gray: #f4f4f4;
+      --ibm-dark: #121619;
+      --ibm-border: #393939;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      background-color: #000;
-      color: #fff;
+      background-color: var(--ibm-dark);
+      color: white;
       font-family: 'IBM Plex Sans', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
     }
+
     header {
       padding: 2rem 1rem;
       font-size: 2rem;
+      font-weight: bold;
+      color: var(--ibm-blue);
     }
+
     main {
       width: 100%;
       max-width: 600px;
       padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    label, input, select, button {
-      display: block;
-      width: 100%;
-      margin-bottom: 1rem;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select {
+      background: #262626;
+      color: white;
+      border: 1px solid var(--ibm-border);
+      padding: 0.6rem;
+      border-radius: 4px;
       font-size: 1rem;
     }
-    input, select, button {
-      padding: 0.5rem;
-      background: #111;
-      color: #fff;
-      border: 1px solid #333;
-    }
+
     button {
+      background-color: var(--ibm-blue);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.2s;
     }
+
+    button:hover {
+      background-color: #0353e9;
+    }
+
     #output {
-      margin-top: 2rem;
+      background: #1c1c1c;
+      border: 1px solid var(--ibm-border);
+      padding: 1rem;
+      border-radius: 4px;
       white-space: pre-wrap;
+      font-size: 1rem;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
   <header>IBMsum</header>
   <main>
-    <label for="type">Generate by:</label>
-    <select id="type">
-      <option value="words">Words</option>
-      <option value="paragraphs">Paragraphs</option>
-    </select>
+    <div>
+      <label for="type">Generate by:</label>
+      <select id="type">
+        <option value="words">Words</option>
+        <option value="paragraphs">Paragraphs</option>
+      </select>
+    </div>
 
-    <label for="amount">Amount:</label>
-    <input type="number" id="amount" min="1" max="100" value="5" />
+    <div>
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" min="1" max="100" value="5" />
+    </div>
 
-    <button onclick="generateLorem()">Generate</button>
+    <button onclick="generateIbmIpsum()">Generate</button>
 
     <div id="output"></div>
   </main>
 
   <script>
-    const loremWords = "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua".split(" ");
+    const ibmWords = [
+      "Hybrid cloud", "AI-powered", "watsonx", "OpenShift", "enterprise agility", "zero trust security",
+      "mainframe modernization", "data fabric", "quantum-ready", "resilience", "AI governance",
+      "digital transformation", "automation", "Red Hat", "cloud-native", "zero-downtime",
+      "edge computing", "containerized workloads", "observability", "compliance frameworks",
+      "SaaS offerings", "DevSecOps", "cyber resiliency", "IBM Z", "workload portability",
+      "digital twin", "elastic scaling", "infrastructure as code", "cognitive insights",
+      "co-creation", "IBM Garage", "multicloud orchestration", "business outcomes",
+      "open innovation", "predictive analytics", "enterprise-grade AI", "blockchain for business",
+      "AI lifecycle", "scalable infrastructure", "secure by design"
+    ];
 
-    function generateLorem() {
+    function generateIbmIpsum() {
       const type = document.getElementById("type").value;
       const amount = parseInt(document.getElementById("amount").value);
       let output = "";
 
       if (type === "words") {
         for (let i = 0; i < amount; i++) {
-          output += loremWords[i % loremWords.length] + " ";
+          output += ibmWords[i % ibmWords.length] + " ";
         }
+        output = `<p>${output.trim()}.</p>`;
       } else {
         for (let i = 0; i < amount; i++) {
           let para = "";
-          for (let j = 0; j < 50; j++) {
-            para += loremWords[(i * 50 + j) % loremWords.length] + " ";
+          for (let j = 0; j < 30; j++) {
+            para += ibmWords[Math.floor(Math.random() * ibmWords.length)] + ", ";
           }
-          output += `<p>${para.trim()}.</p>`;
+          output += `<p>${para.slice(0, -2)}.</p>`;
         }
       }
 
-      document.getElementById("output").innerHTML = output.trim();
+      document.getElementById("output").innerHTML = output;
     }
   </script>
 </body>
